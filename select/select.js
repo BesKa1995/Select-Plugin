@@ -1,8 +1,10 @@
+import { invertArrow } from "./utils"
+
 const getTemplate = () => {
   return /*html*/`
   <div class="select__input" data-type="input">
     <span>Heloo</span>
-    <i class="fa-solid fa-chevron-down"></i>
+    <i class="fa-solid fa-chevron-down" data-type="arrow"></i>
   </div>
   <div class="select__dropdown">
     <ul class="select__list">
@@ -35,8 +37,8 @@ export class Select {
 
   #setup() {
     this.clickHandler = this.clickHandler.bind(this)
-
     this.$el.addEventListener('click', this.clickHandler)
+    this.$arrow = this.$el.querySelector('[data-type="arrow"]')
   }
 
   clickHandler(event) {
@@ -56,10 +58,12 @@ export class Select {
   }
 
   open() {
+    invertArrow(this.$arrow)
     this.$el.classList.add('open')
   }
 
   close() {
+    invertArrow(this.$arrow)
     this.$el.classList.remove('open')
   }
 }
