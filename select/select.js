@@ -44,7 +44,7 @@ export class Select {
   clickHandler(event) {
     const { type } = event.target.dataset
 
-    if (type === "input") {
+    if (['input', 'arrow'].includes(type)) {
       this.toggle()
     }
   }
