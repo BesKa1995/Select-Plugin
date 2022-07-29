@@ -1,37 +1,40 @@
 import { invertArrow } from "./utils"
 
-const getTemplate = () => {
+const getTemplate = (data = [], placeholder) => {
+  const text = placeholder ?? 'default Placeholder'
+
+
   return /*html*/`
   <div class="select__input" data-type="input">
-    <span>Heloo</span>
+    <span>${text}</span>
     <i class="fa-solid fa-chevron-down" data-type="arrow"></i>
-  </div>
+  </div >
   <div class="select__dropdown">
     <ul class="select__list">
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
-      <li class="select__item">123</li>
+      ${genDataToHTML(data, 'li').join('')}
     </ul>
   </div>
-  
-  `
+
+`
 }
+
+function genDataToHTML(data, tag) {
+  return data.map((item) => {
+    return /*html */`<${tag} class="select__item">${item.value}</${tag}>`
+  })
+}
+
 export class Select {
   constructor(selector, options) {
     this.$el = document.querySelector(selector)
+    this.options = options
     this.#render()
     this.#setup()
   }
 
   #render() {
-    this.$el.innerHTML = getTemplate()
+    const { placeholder, data } = this.options
+    this.$el.innerHTML = getTemplate(data, placeholder)
     this.$el.classList.add('select')
   }
 
@@ -48,6 +51,7 @@ export class Select {
       this.toggle()
     }
   }
+
 
   get isOpen() {
     return this.$el.classList.contains('open')
@@ -67,5 +71,3 @@ export class Select {
     this.$el.classList.remove('open')
   }
 }
-
-
