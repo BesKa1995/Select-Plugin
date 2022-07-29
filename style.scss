@@ -23,15 +23,31 @@ $height: 46px;
 .select {
   position: relative;
   width: 100%;
+  z-index: 100;
 
   &.open {
     .select__dropdown {
       display: block;
     }
 
+    .select__backdrop {
+      display: block;
+    }
+
     .select__input {
       border-bottom: none;
     }
+  }
+
+
+  &__backdrop {
+    position: fixed;
+    display: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
   }
 
   &__input {
