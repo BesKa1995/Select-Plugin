@@ -20,7 +20,13 @@ const getTemplate = (data = [], placeholder) => {
 
 function genDataToHTML(data, tag) {
   return data.map((item) => {
-    return /*html */`<${tag} class="select__item" data-type="item" data-id="${item.id}">${item.value}</${tag}>`
+    return /*html */`
+    <${tag}
+     class="select__item" 
+     data-type="item" 
+     data-id="${item.id}">
+     ${item.value}
+     </${tag}>`
   })
 }
 
