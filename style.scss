@@ -81,8 +81,13 @@ $height: 46px;
   }
 
   &__item {
+
     padding: 8px;
     border-bottom: 1px solid #ddd;
+
+    &.selected {
+      background-color: bisque;
+    }
 
     &:hover {
       background-color: #eee;

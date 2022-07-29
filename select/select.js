@@ -1,4 +1,4 @@
-import { invertArrow } from "./utils"
+import { invertArrow, removeClassSelectFromEl } from "./utils"
 
 const getTemplate = (data = [], placeholder) => {
   const text = placeholder ?? 'default Placeholder'
@@ -73,9 +73,12 @@ export class Select {
     return this.options.data.find(item => item.id === this.selectedId)
   }
 
+
   select(id) {
     this.selectedId = Number(id)
     this.$value.textContent = this.selectedElement.value
+    removeClassSelectFromEl('selected', this.$el.querySelectorAll(`[data-type="item"]`))
+    this.$el.querySelector(`[data-id="${this.selectedId}"]`).classList.add('selected')
     this.close()
   }
   toggle() {

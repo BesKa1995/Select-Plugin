@@ -7,3 +7,9 @@ export function invertArrow(arrow) {
     arrow.classList.add('fa-chevron-down')
   }
 }
+
+export function removeClassSelectFromEl(selector, thisArgs) {
+  thisArgs.forEach(item => {
+    item.classList.value.includes('selected') && item.classList.remove(selector)
+  })
+}
