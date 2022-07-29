@@ -1,8 +1,8 @@
 import { invertArrow, removeClassSelectFromEl } from "./utils"
 
-const getTemplate = (data = [], placeholder) => {
-  const text = placeholder ?? 'default Placeholder'
-
+const getTemplate = (data = [], placeholder, selectedId) => {
+  let text = placeholder ?? 'default Placeholder'
+  data.forEach(item => item.id === Number(selectedId) ? text = item.value : null)
 
   return /*html*/`
   <div class="select__input" data-type="input">
@@ -11,18 +11,23 @@ const getTemplate = (data = [], placeholder) => {
   </div >
   <div class="select__dropdown">
     <ul class="select__list">
-      ${genDataToHTML(data, 'li').join('')}
+      ${genDataToHTML(data, 'li', selectedId).join('')}
     </ul>
   </div>
 
 `
 }
 
-function genDataToHTML(data, tag) {
+function genDataToHTML(data, tag, selectedId) {
+
   return data.map((item) => {
+    let cls = ''
+    if (item.id === Number(selectedId)) {
+      cls = 'selected'
+    }
     return /*html */`
     <${tag}
-     class="select__item" 
+     class="select__item ${cls}" 
      data-type="item" 
      data-id="${item.id}">
      ${item.value}
@@ -35,14 +40,14 @@ export class Select {
 
     this.$el = document.querySelector(selector)
     this.options = options
-    this.selectedId = null
+    this.selectedId = options.selectedId
     this.#render()
     this.#setup()
   }
 
   #render() {
     const { placeholder, data } = this.options
-    this.$el.innerHTML = getTemplate(data, placeholder)
+    this.$el.innerHTML = getTemplate(data, placeholder, this.selectedId)
     this.$el.classList.add('select')
   }
 

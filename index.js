@@ -5,6 +5,7 @@ import { Select } from './select/select'
 
 const select = new Select('#select', {
   placeholder: 'Select',
+  selectedId: '1',
   data: [
     { id: 1, value: 'React' },
     { id: 2, value: 'Angular' },
@@ -12,7 +13,7 @@ const select = new Select('#select', {
     { id: 4, value: 'React Native' },
     { id: 5, value: 'Next' },
     { id: 6, value: 'Nest' },
-  ]
+  ],
 })
 
 window.s = select
